@@ -15,12 +15,14 @@
   --color-gray: #9b9a9a;
   --color-light-gray: #d9d9d9;
 
-  --font-body: var(--font-montserrat);
+  --font-body: "montserrat", sans-serif;
   --font-number: var(--font-poppins);
+
+  --text-xxs: 0.625rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Var(--font-body), Helvetica, sans-serif;
+  font-family: var(--font-body), Helvetica, sans-serif;
 }
