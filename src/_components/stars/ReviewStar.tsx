@@ -1,6 +1,6 @@
 import { FaStar } from "react-icons/fa6";
 
-export default function Star({
+export default function ReviewStar({
   size = "text-xs",
   className,
 }: {

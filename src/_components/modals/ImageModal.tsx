@@ -16,7 +16,7 @@ export default function ImageModal({
       <Dialog
         open={open}
         handler={handleOpen}
-        className="w-auto min-w-0 bg-transparent shadow-none"
+        className="w-auto min-w-0 bg-transparent shadow-none focus:border-none focus:outline-none"
       >
         <DialogBody>
           <Image src={image} alt="Product Image" />
