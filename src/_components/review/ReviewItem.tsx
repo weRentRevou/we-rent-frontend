@@ -2,12 +2,12 @@
 
 import ThumbsUpIcon from "@/../public/icons/thumbs-up.svg";
 import Image from "next/image";
-import Star from "../stars/Star";
 import { useState } from "react";
 import { Review } from "@/types/types";
 import HorizontalDivider from "../dividers/HorizontalDivider";
 import DummyImage from "@/../public/images/dummy.webp";
 import ImageModal from "../modals/ImageModal";
+import ReviewStar from "../stars/ReviewStar";
 
 const ReviewText = ({ review }: { review: string }) => {
   const maxLength = 200;
@@ -57,7 +57,7 @@ export default function ReviewItem({
             <div className="flex flex-col justify-between">
               <div className="flex items-center">
                 {Array.from({ length: rating }).map((_, index) => (
-                  <Star key={index} />
+                  <ReviewStar key={index} />
                 ))}
               </div>
               <span className="flex gap-1 text-xxs text-gray uppercase">

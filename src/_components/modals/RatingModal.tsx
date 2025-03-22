@@ -5,7 +5,7 @@ import {
   Radio,
   ThemeProvider,
 } from "@material-tailwind/react";
-import Star from "../stars/Star";
+import ReviewStar from "../stars/ReviewStar";
 
 export default function RatingModal({
   open,
@@ -30,7 +30,7 @@ export default function RatingModal({
                 <Radio name="rating" onClick={() => console.log(rating)} />
                 <div className="flex items-center gap-2 pr-3">
                   {Array.from({ length: 5 - index }).map((_, starIndex) => (
-                    <Star key={starIndex} size="size-4" />
+                    <ReviewStar key={starIndex} size="size-4" />
                   ))}
                 </div>
               </div>
