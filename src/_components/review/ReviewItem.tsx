@@ -82,7 +82,7 @@ export default function ReviewItem({
         <div className="mt-4">
           <ReviewText review={review} />
         </div>
-        {true && (
+        {images && (
           <div className="my-2">
             <div
               className="size-14 border border-black"

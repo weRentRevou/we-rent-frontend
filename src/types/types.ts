@@ -8,5 +8,5 @@ export interface Review {
   review: string;
   date: string;
   likes: number;
-  images: string[];
+  images: string[] | null;
 }
