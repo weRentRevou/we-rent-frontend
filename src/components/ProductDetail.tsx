@@ -1,4 +1,5 @@
 import { fetchProduct } from "@/providers/Api";
+import { Suspense } from "react";
 
 async function getProductData() {
   const data = await fetchProduct();
@@ -25,3 +26,10 @@ export default async function ProductDetail() {
   );
 }
 
+export function ProductDetailWrapper() {
+  return (
+    <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+      <ProductDetail />
+    </Suspense>
+  );
+}
