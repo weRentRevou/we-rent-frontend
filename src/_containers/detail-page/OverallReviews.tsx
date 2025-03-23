@@ -8,7 +8,10 @@ export default function OverallReviews() {
     <div className="mt-4">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-sm font-bold">REVIEWS (7)</h3>
-        <Link href="#" className="text-accent text-sm font-semibold underline">
+        <Link
+          href="/1/reviews"
+          className="text-accent text-sm font-semibold underline"
+        >
           View More &gt;
         </Link>
       </div>

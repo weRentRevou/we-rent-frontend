@@ -13,15 +13,25 @@ export default function RatingFilter() {
         className="w-full px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-md font-medium hover:bg-[#C7AA5C] hover:text-white transition-colors flex items-center justify-between"
       >
         <span>
-          Rating: {selectedRating ? `${selectedRating} Star${selectedRating > 1 ? "s" : ""}` : "All"}
+          Rating:{" "}
+          {selectedRating
+            ? `${selectedRating} Star${selectedRating > 1 ? "s" : ""}`
+            : "All"}
         </span>
         <svg
-          className={`w-4 h-4 transition-transform ${showDropdown ? "rotate-180" : ""}`}
+          className={`w-4 h-4 transition-transform ${
+            showDropdown ? "rotate-180" : ""
+          }`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
@@ -49,7 +59,10 @@ export default function RatingFilter() {
                 {Array(rating)
                   .fill(0)
                   .map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <Star
+                      key={i}
+                      className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                    />
                   ))}
                 {Array(5 - rating)
                   .fill(0)

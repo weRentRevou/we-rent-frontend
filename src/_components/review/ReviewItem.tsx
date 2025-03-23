@@ -4,7 +4,6 @@ import ThumbsUpIcon from "@/../public/icons/thumbs-up.svg";
 import Image from "next/image";
 import { useState } from "react";
 import { Review } from "@/types/types";
-import HorizontalDivider from "../dividers/HorizontalDivider";
 import DummyImage from "@/../public/images/dummy.webp";
 import ImageModal from "../modals/ImageModal";
 import ReviewStar from "../stars/ReviewStar";
@@ -103,7 +102,6 @@ export default function ReviewItem({
         )}
         <p className="text-gray font-medium text-xxs mt-1">{date}</p>
       </div>
-      <HorizontalDivider className="my-5" />
     </>
   );
 }
