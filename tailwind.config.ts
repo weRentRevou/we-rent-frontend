@@ -7,6 +7,7 @@ module.exports = withMT({
     "./src/**/*.{js,ts,jsx,tsx}",
     "./src/app/**/*.{js,ts,jsx,tsx}",
     "./src/_components/**/*.{js,ts,jsx,tsx}",
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     "./src/_layout/**/*.{js,ts,jsx,tsx}",
     "./src/_containers/**/*.{js,ts,jsx,tsx}",
   ],
