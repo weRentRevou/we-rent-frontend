@@ -1,32 +1,93 @@
-import HorizontalDivider from "@/_components/dividers/HorizontalDivider";
-import ReviewItem from "@/_components/review/ReviewItem";
-import React from "react";
+"use client";
 
-function FilterButton({
-  children,
-  handleClick,
-}: {
-  children: React.ReactNode;
-  handleClick?: () => void;
-}) {
-  return (
-    <button
-      onClick={handleClick}
-      className="bg-primary text-xxs font-bold px-5 py-1.5 leading-2.5 text-white"
-    >
-      {children}
-    </button>
-  );
-}
+import FilterButton from "@/_components/button/FilterButton";
+import HorizontalDivider from "@/_components/dividers/HorizontalDivider";
+import RatingModal from "@/_components/modals/RatingModal";
+import ReviewItem from "@/_components/review/ReviewItem";
+import React, { useState } from "react";
+import { FaChevronDown } from "react-icons/fa6";
+
+type FilterTypes =
+  | "All Reviews"
+  | "Newest Reviews"
+  | "Photos/ Videos"
+  | "By Rating";
+
+const labels = [
+  {
+    label: "All Reviews",
+    action: () => {
+      console.log("all reviews");
+    },
+  },
+  {
+    label: "Photos/ Videos",
+    action: () => {
+      console.log("Photos/ Videos");
+    },
+  },
+  {
+    label: "Newest Reviews",
+    action: () => {
+      console.log("newest reviews");
+    },
+  },
+];
+
+const StarRating = ({ rating }: { rating: number }) => {
+  return <span>{rating === 0 ? "All" : `${rating} ★`}</span>;
+};
 
 export default function ReviewList() {
+  const [selectedFilter, setSelectedFilter] =
+    useState<FilterTypes>("All Reviews");
+
+  const [isOpen, setOpen] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(0);
+
+  const handleFilterClick = (filter: FilterTypes, action: () => void) => {
+    setSelectedFilter(filter);
+    setSelectedRating(0);
+    action();
+  };
+
+  const handleRatingFilter = (rating: number) => {
+    setSelectedFilter("By Rating");
+    setSelectedRating(rating);
+    setOpen(false);
+  };
+
   return (
     <section>
       <div className="grid grid-cols-4 gap-2 px-3">
-        <FilterButton>All Reviews</FilterButton>
-        <FilterButton>All Reviews</FilterButton>
-        <FilterButton>All Reviews</FilterButton>
-        <FilterButton>All Reviews</FilterButton>
+        {labels.map((label, index) => (
+          <FilterButton
+            key={index}
+            isActive={selectedFilter === label.label}
+            onClick={() =>
+              handleFilterClick(label.label as FilterTypes, label.action)
+            }
+          >
+            {label.label}
+          </FilterButton>
+        ))}
+        <>
+          <FilterButton
+            onClick={() => setOpen(true)}
+            isActive={selectedFilter === "By Rating"}
+            className="flex items-center gap-0.5"
+          >
+            <span>
+              Rating: <StarRating rating={selectedRating} />
+            </span>
+            <FaChevronDown className="text-xs" />
+          </FilterButton>
+          <RatingModal
+            open={isOpen}
+            handleOpen={() => setOpen(false)}
+            handleClick={handleRatingFilter}
+          />
+        </>
       </div>
       <div>
         {Array.from({ length: 5 }).map((_, index) => (
