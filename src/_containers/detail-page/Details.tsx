@@ -2,11 +2,11 @@ import Link from "next/link";
 import HorizontalDivider from "../../_components/dividers/HorizontalDivider";
 import Stars from "../../_components/stars/Stars";
 
-export default function Details() {
+export default function Details({ name }: { name: string }) {
   return (
     <div>
       <h1 className="w-2/3 text-lg font-semibold capitalize leading-4.5">
-        Black Kaftan with Embellishment
+        {name}
       </h1>
       <div className="flex items-center gap-2 mt-4.5">
         <Stars rating={4} size="text-lg" />
