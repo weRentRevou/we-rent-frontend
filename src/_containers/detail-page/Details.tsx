@@ -1,10 +1,10 @@
 import Link from "next/link";
-import HorizontalDivider from "../dividers/HorizontalDivider";
-import Stars from "../stars/Stars";
+import HorizontalDivider from "../../_components/dividers/HorizontalDivider";
+import Stars from "../../_components/stars/Stars";
 
-export default function details() {
+export default function Details() {
   return (
-    <div className="px-5 pt-4.5">
+    <div>
       <h1 className="w-2/3 text-lg font-semibold capitalize leading-4.5">
         Black Kaftan with Embellishment
       </h1>
@@ -20,7 +20,7 @@ export default function details() {
       </div>
       <HorizontalDivider className="my-2" />
       <div className="flex justify-between items-center">
-        <h2 className="text-sm font-semibold uppercase">DESIGNERS</h2>
+        <h2 className="text-sm font-bold uppercase">DESIGNERS</h2>
         <Link href="*" className="text-black text-xxs uppercase">
           VIEW THE COLLECTION
         </Link>
@@ -28,6 +28,7 @@ export default function details() {
       <div className="mt-2">
         <div className="w-full h-16 bg-gray-100 text-light-gray"></div>
       </div>
+      <HorizontalDivider className="mt-6 mb-4" height="h-0.5" />
     </div>
   );
 }
