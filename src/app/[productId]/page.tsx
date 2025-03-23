@@ -7,7 +7,12 @@ import ProductDetail from "@/_containers/detail-page/ProductDetail";
 import SizeGuide from "@/_containers/detail-page/SizeGuide";
 import { Suspense } from "react";
 
-export default function ProductDetailPage() {
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ productId: string }>;
+}) {
+  const productId = (await params).productId;
   return (
     <main className="min-h-screen pb-32 relative">
       <ImageCard />

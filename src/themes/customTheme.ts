@@ -1,5 +1,3 @@
-import { DialogStylesType } from "@material-tailwind/react";
-
 export const customTheme = {
   dialog: {
     styles: {

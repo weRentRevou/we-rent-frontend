@@ -4,7 +4,7 @@ import FilterButton from "@/_components/button/FilterButton";
 import HorizontalDivider from "@/_components/dividers/HorizontalDivider";
 import RatingModal from "@/_components/modals/RatingModal";
 import ReviewItem from "@/_components/review/ReviewItem";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
 
 type FilterTypes =
@@ -51,11 +51,11 @@ export default function ReviewList() {
     action();
   };
 
-  const handleRatingFilter = (rating: number) => {
+  const handleRatingFilter = useCallback((rating: number) => {
     setSelectedFilter("By Rating");
     setSelectedRating(rating);
     setOpen(false);
-  };
+  }, []);
 
   return (
     <section>

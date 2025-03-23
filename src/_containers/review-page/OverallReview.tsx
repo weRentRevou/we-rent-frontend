@@ -14,8 +14,8 @@ export default function OverallReviews() {
             { label: "Small", percentage: 2 },
             { label: "True To Size", percentage: 100 },
             { label: "Large", percentage: 80 },
-          ].map((item) => (
-            <div key={item.label}>
+          ].map((item, index) => (
+            <div key={index}>
               <div className="text-xxs mb-2">{item.percentage}%</div>
               <div className="h-[5px] bg-gray mb-2">
                 <div

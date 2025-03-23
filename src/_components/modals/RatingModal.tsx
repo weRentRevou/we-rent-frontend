@@ -1,11 +1,14 @@
-import { customTheme } from "@/themes/customTheme";
-import {
-  Dialog,
-  DialogBody,
-  Radio,
-  ThemeProvider,
-} from "@material-tailwind/react";
+"use client";
+
+import { Dialog, DialogBody, Radio } from "@material-tailwind/react";
 import ReviewStar from "../stars/ReviewStar";
+import dynamic from "next/dynamic";
+import { customTheme } from "@/themes/customTheme";
+
+const DynamicThemeProvider = dynamic(
+  () => import("@material-tailwind/react").then((mod) => mod.ThemeProvider),
+  { ssr: false }
+);
 
 export default function RatingModal({
   open,
@@ -17,7 +20,7 @@ export default function RatingModal({
   handleClick: (rating: number) => void;
 }) {
   return (
-    <ThemeProvider value={customTheme}>
+    <DynamicThemeProvider value={customTheme}>
       <Dialog
         open={open}
         handler={handleOpen}
@@ -35,7 +38,7 @@ export default function RatingModal({
                   className="w-5.5! h-5.5! border-black!"
                 />
                 <div className="flex items-center gap-2 pr-3">
-                  {Array.from({ length: 5 - index }).map((_, starIndex) => (
+                  {Array.from({ length: rating }).map((_, starIndex) => (
                     <ReviewStar key={starIndex} size="size-4" />
                   ))}
                 </div>
@@ -44,6 +47,6 @@ export default function RatingModal({
           })}
         </DialogBody>
       </Dialog>
-    </ThemeProvider>
+    </DynamicThemeProvider>
   );
 }
