@@ -1,17 +1,22 @@
 import OverallReviews from "@/_containers/review-page/OverallReview";
-import ReviewList from "@/_containers/review-page/ReviewList";
+import ReviewSection from "@/_containers/review-page/ReviewSection";
+import { fetchReviewProduct } from "@/services/api";
 
 export default async function ReviewsPage({
   params,
 }: {
   params: Promise<{ productId: string }>;
 }) {
-  const productId = (await params).productId;
-  console.log(productId);
+  const productId = Number((await params).productId);
+
+  const review = await fetchReviewProduct(productId);
+
+  // For debugging
+  console.log(review);
   return (
     <main className="min-h-screen pb-5">
       <OverallReviews />
-      <ReviewList />
+      <ReviewSection reviews={review.reviews} />
     </main>
   );
 }

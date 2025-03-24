@@ -1,7 +1,12 @@
 import { customTheme } from "@/themes/customTheme";
-import { Dialog, DialogBody, ThemeProvider } from "@material-tailwind/react";
+import { Dialog, DialogBody } from "@material-tailwind/react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
+const DynamicThemeProvider = dynamic(
+  () => import("@material-tailwind/react").then((mod) => mod.ThemeProvider),
+  { ssr: false }
+);
 export default function ImageModal({
   open,
   handleOpen,
@@ -12,7 +17,7 @@ export default function ImageModal({
   handleOpen: () => void;
 }) {
   return (
-    <ThemeProvider value={customTheme}>
+    <DynamicThemeProvider value={customTheme}>
       <Dialog
         open={open}
         handler={handleOpen}
@@ -26,9 +31,17 @@ export default function ImageModal({
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <Image src={image} alt="Product Image" />
+          <Image
+            src={image}
+            alt="Product Image"
+            className="w-full h-full"
+            width={393}
+            height={393}
+            quality={100}
+            loading="lazy"
+          />
         </DialogBody>
       </Dialog>
-    </ThemeProvider>
+    </DynamicThemeProvider>
   );
 }
