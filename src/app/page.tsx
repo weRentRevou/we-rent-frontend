@@ -5,6 +5,7 @@ import RatingModal from "@/_components/modals/RatingModal";
 import ReviewItem from "@/_components/review/ReviewItem";
 import { useState } from "react";
 import Product from "@/_container/product";
+import PriceTag from "@/_container/priceTag";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +27,7 @@ export default function Home() {
       />
       <button onClick={() => setIsOpen(true)}>Open Modal</button>
       <RatingModal open={isOpen} handleOpen={() => setIsOpen(!isOpen)} /> */}
+      <PriceTag />
     </div>
   );
 }
