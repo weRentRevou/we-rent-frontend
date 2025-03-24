@@ -8,7 +8,7 @@ export default function ImageModal({
   image,
 }: {
   open: boolean;
-  image: any;
+  image: string;
   handleOpen: () => void;
 }) {
   return (
@@ -17,8 +17,15 @@ export default function ImageModal({
         open={open}
         handler={handleOpen}
         className="w-auto min-w-0 bg-transparent shadow-none focus:border-none focus:outline-none"
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
       >
-        <DialogBody>
+        <DialogBody
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
           <Image src={image} alt="Product Image" />
         </DialogBody>
       </Dialog>

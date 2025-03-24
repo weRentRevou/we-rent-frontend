@@ -35,7 +35,6 @@ const ReviewText = ({ review }: { review: string }) => {
 };
 
 export default function ReviewItem({
-  profileImage,
   rating,
   fit,
   weight,
@@ -96,7 +95,7 @@ export default function ReviewItem({
             <ImageModal
               open={isOpen}
               handleOpen={() => setIsOpen(!isOpen)}
-              image={DummyImage}
+              image={"/images/dummy.webp"}
             />
           </div>
         )}

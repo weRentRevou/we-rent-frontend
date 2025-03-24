@@ -25,8 +25,15 @@ export default function RatingModal({
         open={open}
         handler={handleOpen}
         className="w-auto min-w-0 rounded-3xl"
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
       >
-        <DialogBody>
+        <DialogBody
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
           {Array.from({ length: 5 }, (_, index) => {
             const rating = 5 - index;
 
@@ -36,6 +43,9 @@ export default function RatingModal({
                   name="rating"
                   onClick={() => handleClick(rating)}
                   className="w-5.5! h-5.5! border-black!"
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  crossOrigin={undefined}
                 />
                 <div className="flex items-center gap-2 pr-3">
                   {Array.from({ length: rating }).map((_, starIndex) => (
