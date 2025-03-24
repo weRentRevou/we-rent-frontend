@@ -17,32 +17,32 @@ export default async function SizeGuide() {
 
   return (
     <div className=" bg-white rounded-lg max-w-sm mx-0">
-        <div>
-            <h3 className="text-md font-medium mb-1">SIZE GUIDE</h3>
-            <table className="w-full border-collapse border border-gray-200">
-                <thead>
-                    <tr className="border-b border-gray-300">
-                    <th className="p-2 text-xs">SIZE</th>
-                    <th className="p-2 text-xs">BUST</th>
-                    <th className="p-2 text-xs">LENGTH</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td className="p-2 border-t border-gray-300 text-center">
-                        {product.size.toUpperCase()}
-                    </td>
-                    <td className="p-2 border-t border-gray-300 text-center">
-                        {product.bust} cm
-                    </td>
-                    <td className="p-2 border-t border-gray-300 text-center">
-                        {product.length} cm
-                    </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div className="w-full border-1 border-gray-300 my-5"></div>
+      <div>
+        <h3 className="text-md font-medium mb-1">SIZE GUIDE</h3>
+        <table className="w-full border-collapse border border-gray-200">
+          <thead>
+              <tr className="border-b border-gray-300">
+              <th className="p-2 text-xs">SIZE</th>
+              <th className="p-2 text-xs">BUST</th>
+              <th className="p-2 text-xs">LENGTH</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+              <td className="p-2 border-t border-gray-300 text-center">
+                {product.size.toUpperCase()}
+              </td>
+              <td className="p-2 border-t border-gray-300 text-center">
+                {product.bust} cm
+              </td>
+              <td className="p-2 border-t border-gray-300 text-center">
+                {product.length} cm
+              </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className="w-full border-1 border-gray-300 my-5"></div>
     </div>
   );
 }
