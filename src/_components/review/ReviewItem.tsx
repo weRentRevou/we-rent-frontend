@@ -1,15 +1,19 @@
 "use client";
 
 import ThumbsUpIcon from "@/../public/icons/thumbs-up.svg";
+import ThumbsUpIconGreen from "@/../public/icons/thumbs-up-fill.svg";
 import Image from "next/image";
-import { useState } from "react";
-import { Review } from "@/types/types";
+import { useEffect, useState } from "react";
+import { Review, ReviewReply } from "@/types/types";
 import ImageModal from "../modals/ImageModal";
 import ReviewStar from "../stars/ReviewStar";
 import { formatDate } from "@/utils/utils";
+import { fetchReviewReply, likeReview } from "@/services/api";
+
+const user_id = 3;
 
 interface ReviewItemProps extends Review {
-  index: number;
+  reviewIndex: number;
 }
 
 const ReviewText = ({ review }: { review: string }) => {
@@ -45,11 +49,56 @@ export default function ReviewItem({
   review_text,
   review_photo,
   created_at,
-  index,
+  reviewIndex,
+  id,
 }: ReviewItemProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
   const formatedDate = formatDate(created_at);
+
+  const [totalLike, setTotalLike] = useState(likes);
+  const [isLiked, setLiked] = useState(user.id === user_id);
+
+  useEffect(() => {
+    const getReviewReplies = async (review_id: number) => {
+      try {
+        const replies = await fetchReviewReply(review_id);
+
+        const hasLiked = replies.some(
+          (reply: ReviewReply) => reply.user.id === user_id && reply.is_liked
+        );
+        setLiked(hasLiked);
+      } catch (error) {
+        console.error("Error fetching review replies:", error);
+        throw Error;
+      }
+    };
+
+    if (id) {
+      getReviewReplies(id);
+    }
+  }, [id]);
+
+  const handleLike = async () => {
+    try {
+      setTotalLike(isLiked ? totalLike - 1 : totalLike + 1);
+      setLiked(!isLiked);
+
+      await likeReview(id, {
+        user_id,
+        is_liked: !isLiked,
+        comment_text: review_text,
+      });
+    } catch (error) {
+      setTotalLike(likes);
+      setLiked(user.id === user_id);
+
+      console.error("Error fetching product:", error);
+      throw Error;
+    }
+  };
+
   return (
     <>
       <div>
@@ -78,39 +127,45 @@ export default function ReviewItem({
             </div>
           </div>
           <div className="flex items-center gap-1">
-            <button>
+            <button onClick={handleLike}>
               <Image
-                src={ThumbsUpIcon}
+                src={isLiked ? ThumbsUpIconGreen : ThumbsUpIcon}
                 width={24}
                 height={24}
                 alt="Thumbs Up"
               />
             </button>
-            <span className="text-xs">({likes})</span>
+            <span className="text-xs">({totalLike})</span>
           </div>
         </div>
         <div className="mt-4">
           <ReviewText review={review_text} />
         </div>
         {review_photo && (
-          <div className="my-2">
-            <div
-              className="size-14 border border-black"
-              onClick={() => setIsOpen(true)}
-            >
-              <Image
-                width={90}
-                height={90}
-                src={review_photo}
-                alt="Product Image"
-                className="w-full h-full object-cover object-center"
-                priority={index < 3}
-              />
-            </div>
+          <div className="my-2 flex items-center flex-wrap gap-1">
+            {review_photo.map((image, index) => (
+              <div
+                key={index}
+                className="size-14 border border-black"
+                onClick={() => {
+                  setSelectedImage(image);
+                  setIsOpen(true);
+                }}
+              >
+                <Image
+                  width={90}
+                  height={90}
+                  src={image}
+                  alt="Product Image"
+                  className="w-full h-full object-cover object-center"
+                  priority={reviewIndex < 3}
+                />
+              </div>
+            ))}
             <ImageModal
               open={isOpen}
               handleOpen={() => setIsOpen(!isOpen)}
-              image={review_photo}
+              image={selectedImage}
             />
           </div>
         )}

@@ -13,7 +13,7 @@ export default function ReviewList({ reviews }: { reviews: Review[] }) {
           <React.Fragment key={index}>
             <HorizontalDivider className="my-5" />
             <div className="px-5">
-              <ReviewItem {...review} index={index} />
+              <ReviewItem {...review} reviewIndex={index} />
             </div>
           </React.Fragment>
         ))

@@ -20,7 +20,7 @@ export default async function ProductDetailPage({
     fetchReviewProduct(productId),
   ]);
   // For debugging
-  console.log(product);
+  console.log(review);
 
   return (
     <main className="min-h-screen pb-32 relative">
