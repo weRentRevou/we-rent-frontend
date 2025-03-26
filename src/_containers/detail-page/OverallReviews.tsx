@@ -3,7 +3,12 @@ import HorizontalDivider from "@/_components/dividers/HorizontalDivider";
 import Stars from "@/_components/stars/Stars";
 import Link from "next/link";
 
-export default function OverallReviews() {
+interface ProductReviewData {
+  average_rating : number;
+  fitscale : {small : number, true_to_size : number, large : number};
+}
+
+export default function OverallReviews({ reviewData }: { reviewData: ProductReviewData }) {
   return (
     <div className="mt-4">
       <div className="flex justify-between items-center mb-4">
@@ -15,11 +20,11 @@ export default function OverallReviews() {
           View More &gt;
         </Link>
       </div>
-      <Stars rating={4} size="text-sm" gap="gap-1.5" />
+      <Stars rating={reviewData.average_rating} size="text-sm" gap="gap-1.5" />
       <div className="mt-4 flex flex-col gap-2 w-full">
-        <ProgressBar label="Small" value={2} />
-        <ProgressBar label="True To Size" value={100} />
-        <ProgressBar label="Large" value={70} />
+        <ProgressBar label="Small" value={reviewData.fitscale.small} />
+        <ProgressBar label="True To Size" value={reviewData.fitscale.true_to_size} />
+        <ProgressBar label="Large" value={reviewData.fitscale.large} />
       </div>
       <div className="px-5">
         <HorizontalDivider className="mt-4" />
