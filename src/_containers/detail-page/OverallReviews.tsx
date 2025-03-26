@@ -28,7 +28,11 @@ export default function OverallReviews({
           View More &gt;
         </Link>
       </div>
-      <Stars rating={reviewData.average_rating} size="text-sm" gap="gap-1.5" />
+      <Stars
+        rating={Math.floor(reviewData.average_rating)}
+        size="text-sm"
+        gap="gap-1.5"
+      />
       <div className="mt-4 flex flex-col gap-2 w-full">
         <ProgressBar label="Small" value={reviewData.fit_scale.small} />
         <ProgressBar

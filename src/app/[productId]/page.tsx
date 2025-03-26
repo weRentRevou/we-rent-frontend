@@ -1,3 +1,4 @@
+import FloatButton from "@/_components/button/FloatButton";
 import ImageCard from "@/_components/imageCard/imageCard";
 import ReviewItemLoading from "@/_components/loadings/ReviewItemLoading";
 import ReviewItem from "@/_components/review/ReviewItem";
@@ -19,19 +20,23 @@ export default async function ProductDetailPage({
     fetchProductById(productId),
     fetchReviewProduct(productId),
   ]);
-  // For debugging
-  console.log(review);
 
   return (
     <main className="min-h-screen pb-32 relative">
-      <ImageCard />
+      <FloatButton price={product.price} />
+      <ImageCard image={product.product_image} />
       <div className="px-5 pt-4.5">
         <section>
-          <Details name={product.name} />
+          <Details
+            name={product.name}
+            totalReview={review.reviews.length}
+            averageRating={review.average_rating}
+            size={product.size}
+          />
         </section>
         <section>
           <ProductDetail productInfo={product} />
-          <SizeGuide productData={product}/>
+          <SizeGuide productData={product} />
         </section>
         <section>
           <OverallReviews reviewData={review} />

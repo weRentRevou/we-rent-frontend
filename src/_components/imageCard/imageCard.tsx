@@ -1,12 +1,14 @@
 import React from "react";
 import Image from "next/image";
+import { extractDomain } from "@/utils/utils";
 
-export default function imageCard() {
+export default function imageCard({ image }: { image: string }) {
+  const domain = extractDomain(image);
   return (
     <div>
-      <div className="relative w-full flex-1 bg-black">
+      <div className="relative w-full flex-1">
         <Image
-          src="/images/Photo.png"
+          src={image}
           alt="Black Kaftan with Embellishment"
           width={500}
           height={700}
@@ -15,7 +17,7 @@ export default function imageCard() {
           priority
         />
         <p className="absolute bottom-3 right-5 text-white text-xs">
-          source: Amina Moroccan Abaya
+          source: {domain}
         </p>
       </div>
     </div>
