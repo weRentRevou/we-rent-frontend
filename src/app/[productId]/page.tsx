@@ -30,11 +30,11 @@ export default async function ProductDetailPage({
           <Details name={product.name} />
         </section>
         <section>
-          <ProductDetail />
-          <SizeGuide />
+          <ProductDetail productInfo={product} />
+          <SizeGuide productData={product}/>
         </section>
         <section>
-          <OverallReviews />
+          <OverallReviews reviewData={review} />
         </section>
         <section className="mt-4">
           <Suspense fallback={<ReviewItemLoading />}>
