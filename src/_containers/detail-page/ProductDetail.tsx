@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { ProductDetailSkeleton } from "@/_components/loadings/ProductDetailLoading";
 
 interface Product {
   fabric: string;
@@ -7,7 +8,7 @@ interface Product {
 
 export default function ProductDetail({ productInfo }: { productInfo: Product }) {
   return (
-    <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+    <Suspense fallback={<ProductDetailSkeleton />}>
       <div>
         <h2 className="text-sm font-bold mb-2">PRODUCT DETAIL</h2>
         <div className="flex justify-between text-xs">

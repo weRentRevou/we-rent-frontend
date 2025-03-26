@@ -1,5 +1,6 @@
 import HorizontalDivider from "@/_components/dividers/HorizontalDivider";
 import { Suspense } from "react";
+import { SizeGuideSkeleton } from "@/_components/loadings/SizeGuideLoading";
 
 interface Product {
   size: string;
@@ -9,7 +10,7 @@ interface Product {
 
 export default function SizeGuide({ productData }: { productData: Product }) {
   return (
-    <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+    <Suspense fallback={<SizeGuideSkeleton />}>
       <div className="mt-4">
         <div>
           <h3 className="text-xs font-bold mb-2">SIZE GUIDE</h3>
@@ -23,9 +24,7 @@ export default function SizeGuide({ productData }: { productData: Product }) {
             </thead>
             <tbody>
               <tr className="text-xs font-light">
-                <td className="p-2 text-center uppercase">
-                  {productData.size}
-                </td>
+                <td className="p-2 text-center">{productData.size}</td>
                 <td className="p-2 text-center">{productData.bust} cm</td>
                 <td className="p-2 text-center">{productData.length} cm</td>
               </tr>
