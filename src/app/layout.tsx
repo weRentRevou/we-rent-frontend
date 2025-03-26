@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
-import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import Navbar from "@/_components/header/Header";
+import { ReviewProvider } from "@/providers/ReviewProvider";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -29,7 +30,10 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${poppins.variable} antialiased`}
       >
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReviewProvider>
+          <Navbar />
+          {children}
+        </ReviewProvider>
       </body>
     </html>
   );
