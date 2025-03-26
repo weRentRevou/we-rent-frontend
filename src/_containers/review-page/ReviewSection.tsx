@@ -8,6 +8,7 @@ import { Review } from "@/types/types";
 import React, { Suspense, useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
 import ReviewList from "./ReviewList";
+import { fetchFilteredReviews } from "@/services/api";
 
 type FilterTypes =
   | "All Reviews"
@@ -18,21 +19,12 @@ type FilterTypes =
 const labels = [
   {
     label: "All Reviews",
-    action: () => {
-      console.log("all reviews");
-    },
   },
   {
     label: "Photos/ Videos",
-    action: () => {
-      console.log("Photos/ Videos");
-    },
   },
   {
     label: "Newest Reviews",
-    action: () => {
-      console.log("newest reviews");
-    },
   },
 ];
 
@@ -40,29 +32,62 @@ const StarRating = ({ rating }: { rating: number }) => {
   return <span>{rating === 0 ? "All" : `${rating} ★`}</span>;
 };
 
-export default function ReviewSection({ reviews }: { reviews: Review[] }) {
+export default function ReviewSection({
+  productId,
+  reviews,
+}: {
+  productId: number;
+  reviews: Review[];
+}) {
   const { setTotalReview } = useReviewContext();
-
-  useEffect(() => {
-    setTotalReview(reviews.length);
-  }, [reviews.length, setTotalReview]);
-
+  const [filteredReviews, setFilteredReviews] = useState(reviews);
   const [selectedFilter, setSelectedFilter] =
     useState<FilterTypes>("All Reviews");
-
   const [isOpen, setOpen] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
 
-  const handleFilterClick = (filter: FilterTypes, action: () => void) => {
+  useEffect(() => {
+    setTotalReview(filteredReviews.length);
+  }, [filteredReviews.length, setTotalReview]);
+
+  const handleFilterClick = async (filter: FilterTypes) => {
+    if (!productId) {
+      console.error("Error: productId is undefined");
+      return;
+    }
+  
     setSelectedFilter(filter);
     setSelectedRating(0);
-    action();
+  
+    let updatedReviews = reviews;
+  
+    if (filter === "Photos/ Videos") {
+      updatedReviews = await fetchFilteredReviews({ productId, hasPhoto: true });
+    } else if (filter === "Newest Reviews") {
+      updatedReviews = await fetchFilteredReviews({
+        productId,
+        sortBy: "newest",
+      });
+    } else {
+      updatedReviews = await fetchFilteredReviews({ productId });
+    }
+  
+    setFilteredReviews(updatedReviews);
   };
 
-  const handleRatingFilter = (rating: number) => {
+  const handleRatingFilter = async (rating: number) => {
+    if (!productId) {
+      console.error("Error: productId is undefined");
+      return;
+    }
+  
     setSelectedFilter("By Rating");
     setSelectedRating(rating);
     setOpen(false);
+  
+    const updatedReviews = await fetchFilteredReviews({ productId, rating });
+  
+    setFilteredReviews(updatedReviews);
   };
 
   return (
@@ -73,32 +98,30 @@ export default function ReviewSection({ reviews }: { reviews: Review[] }) {
             key={index}
             isActive={selectedFilter === label.label}
             onClick={() =>
-              handleFilterClick(label.label as FilterTypes, label.action)
+              handleFilterClick(label.label as FilterTypes)
             }
           >
             {label.label}
           </FilterButton>
         ))}
-        <>
-          <FilterButton
-            onClick={() => setOpen(true)}
-            isActive={selectedFilter === "By Rating"}
-            className="flex items-center gap-0.5"
-          >
-            <span>
-              Rating: <StarRating rating={selectedRating} />
-            </span>
-            <FaChevronDown className="text-xs" />
-          </FilterButton>
-          <RatingModal
-            open={isOpen}
-            handleOpen={() => setOpen(false)}
-            handleClick={handleRatingFilter}
-          />
-        </>
+        <FilterButton
+          onClick={() => setOpen(true)}
+          isActive={selectedFilter === "By Rating"}
+          className="flex items-center gap-0.5"
+        >
+          <span>
+            Rating: <StarRating rating={selectedRating} />
+          </span>
+          <FaChevronDown className="text-xs" />
+        </FilterButton>
+        <RatingModal
+          open={isOpen}
+          handleOpen={() => setOpen(false)}
+          handleClick={handleRatingFilter}
+        />
       </div>
       <Suspense fallback={<ReviewListLoading />}>
-        <ReviewList reviews={reviews} />
+        <ReviewList reviews={filteredReviews} />
       </Suspense>
     </section>
   );

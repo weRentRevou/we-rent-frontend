@@ -8,15 +8,12 @@ export default async function ReviewsPage({
   params: Promise<{ productId: string }>;
 }) {
   const productId = Number((await params).productId);
-
   const review = await fetchReviewProduct(productId);
 
-  // For debugging
-  console.log(review);
   return (
     <main className="min-h-screen pb-5">
       <OverallReviews />
-      <ReviewSection reviews={review.reviews} />
+      <ReviewSection productId={productId} reviews={review.reviews} />
     </main>
   );
 }
