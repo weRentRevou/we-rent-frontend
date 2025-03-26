@@ -1,12 +1,19 @@
+export interface User {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  profile_image: string;
+}
+
 export interface Review {
   id: number;
-  profileImage: string;
+  user_id: number;
   rating: number;
-  fit: string;
-  weight: string;
-  height: string;
-  review: string;
-  date: string;
+  review_text: string;
   likes: number;
-  images: string[];
+  review_photo: string | null;
+  created_at: string;
+  updated_at: string;
+  user: User;
 }
