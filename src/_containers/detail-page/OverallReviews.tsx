@@ -2,6 +2,8 @@ import ProgressBar from "@/_components/bars/ProgressBar";
 import HorizontalDivider from "@/_components/dividers/HorizontalDivider";
 import Stars from "@/_components/stars/Stars";
 import Link from "next/link";
+import { Suspense } from "react";
+import { OverallReviewsSkeleton } from "@/_components/loadings/OverallReviewsLoading";
 
 interface ProductReviewData {
   average_rating : number;
@@ -10,6 +12,7 @@ interface ProductReviewData {
 
 export default function OverallReviews({ reviewData }: { reviewData: ProductReviewData }) {
   return (
+    <Suspense fallback={<OverallReviewsSkeleton />}>
     <div className="mt-4">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-sm font-bold">REVIEWS (7)</h3>
@@ -30,5 +33,6 @@ export default function OverallReviews({ reviewData }: { reviewData: ProductRevi
         <HorizontalDivider className="mt-4" />
       </div>
     </div>
+    </Suspense>
   );
 }
