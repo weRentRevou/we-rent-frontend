@@ -1,7 +1,21 @@
 import HorizontalDivider from "@/_components/dividers/HorizontalDivider";
 import { Suspense } from "react";
+import { fetchProductById } from "@/services/api";
 
-export default function SizeGuide() {
+interface Product {
+  size: string;
+  bust: number;
+  length: number;
+}
+
+async function getProductData(): Promise<Product> {
+  const data = await fetchProductById(1);
+  return { size: data.size, bust: data.bust, length: data.length };
+}
+
+export default async function SizeGuide() {
+  const data = await getProductData();
+  
   return (
     <div className="mt-4">
       <div>
@@ -16,9 +30,9 @@ export default function SizeGuide() {
           </thead>
           <tbody>
             <tr className="text-xs font-light">
-              <td className="p-2 text-center">M</td>
-              <td className="p-2 text-center">78 cm</td>
-              <td className="p-2 text-center">89 cm</td>
+              <td className="p-2 text-center">{data.size}</td>
+              <td className="p-2 text-center">{data.bust} cm</td>
+              <td className="p-2 text-center">{data.length} cm</td>
             </tr>
           </tbody>
         </table>

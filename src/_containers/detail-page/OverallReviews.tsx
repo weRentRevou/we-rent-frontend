@@ -2,8 +2,26 @@ import ProgressBar from "@/_components/bars/ProgressBar";
 import HorizontalDivider from "@/_components/dividers/HorizontalDivider";
 import Stars from "@/_components/stars/Stars";
 import Link from "next/link";
+import { fetchReviewProduct } from "@/services/api";
 
-export default function OverallReviews() {
+interface ProductReviewData {
+  average_rating : number;
+  fitscale : {small : number, true_to_size : number, large : number};
+}
+
+async function getProductData(): Promise<ProductReviewData> {
+  const data = await fetchReviewProduct(1);
+  return { average_rating : data.average,
+    fitscale : {
+      small : data.small,
+      true_to_size : data.true_to_size,
+      large : data.large,
+    },
+  };
+}
+
+export default async function OverallReviews() {
+  const data = await getProductData();
   return (
     <div className="mt-4">
       <div className="flex justify-between items-center mb-4">
@@ -15,11 +33,11 @@ export default function OverallReviews() {
           View More &gt;
         </Link>
       </div>
-      <Stars rating={4} size="text-sm" gap="gap-1.5" />
+      <Stars rating={data.average_rating} size="text-sm" gap="gap-1.5" />
       <div className="mt-4 flex flex-col gap-2 w-full">
-        <ProgressBar label="Small" value={2} />
-        <ProgressBar label="True To Size" value={100} />
-        <ProgressBar label="Large" value={70} />
+        <ProgressBar label="Small" value={data.fitscale.small} />
+        <ProgressBar label="True To Size" value={data.fitscale.true_to_size} />
+        <ProgressBar label="Large" value={data.fitscale.large} />
       </div>
       <div className="px-5">
         <HorizontalDivider className="mt-4" />
