@@ -46,6 +46,8 @@ export default function ReviewSection({
   const [isOpen, setOpen] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
 
+  console.log(reviews);
+
   useEffect(() => {
     setTotalReview(filteredReviews.length);
   }, [filteredReviews.length, setTotalReview]);
@@ -55,14 +57,17 @@ export default function ReviewSection({
       console.error("Error: productId is undefined");
       return;
     }
-  
+
     setSelectedFilter(filter);
     setSelectedRating(0);
-  
+
     let updatedReviews = reviews;
-  
+
     if (filter === "Photos/ Videos") {
-      updatedReviews = await fetchFilteredReviews({ productId, hasPhoto: true });
+      updatedReviews = await fetchFilteredReviews({
+        productId,
+        hasPhoto: true,
+      });
     } else if (filter === "Newest Reviews") {
       updatedReviews = await fetchFilteredReviews({
         productId,
@@ -71,7 +76,7 @@ export default function ReviewSection({
     } else {
       updatedReviews = await fetchFilteredReviews({ productId });
     }
-  
+
     setFilteredReviews(updatedReviews);
   };
 
@@ -80,13 +85,13 @@ export default function ReviewSection({
       console.error("Error: productId is undefined");
       return;
     }
-  
+
     setSelectedFilter("By Rating");
     setSelectedRating(rating);
     setOpen(false);
-  
+
     const updatedReviews = await fetchFilteredReviews({ productId, rating });
-  
+
     setFilteredReviews(updatedReviews);
   };
 
@@ -97,9 +102,7 @@ export default function ReviewSection({
           <FilterButton
             key={index}
             isActive={selectedFilter === label.label}
-            onClick={() =>
-              handleFilterClick(label.label as FilterTypes)
-            }
+            onClick={() => handleFilterClick(label.label as FilterTypes)}
           >
             {label.label}
           </FilterButton>

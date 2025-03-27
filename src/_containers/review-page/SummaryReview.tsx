@@ -1,19 +1,25 @@
 import Stars from "@/_components/stars/Stars";
 
-export default function OverallReviews() {
+export default function SummaryReview({
+  average_rating,
+  fit_scale,
+}: {
+  average_rating: number;
+  fit_scale: { small: number; true_to_size: number; large: number };
+}) {
   return (
     <section className="px-5 py-4">
       <div className="flex items-center gap-5">
-        <div className="text-xl font-number font-bold">3.8</div>
-        <Stars rating={4} />
+        <div className="text-xl font-number font-bold">{average_rating}</div>
+        <Stars rating={Math.floor(average_rating)} />
       </div>
       <div className="mt-4">
         <h3 className="text-sm font-semibold mb-4">Fit Scale</h3>
         <div className="grid grid-cols-3 gap-10">
           {[
-            { label: "Small", percentage: 2 },
-            { label: "True To Size", percentage: 100 },
-            { label: "Large", percentage: 80 },
+            { label: "Small", percentage: fit_scale.small },
+            { label: "True To Size", percentage: fit_scale.true_to_size },
+            { label: "Large", percentage: fit_scale.large },
           ].map((item, index) => (
             <div key={index}>
               <div className="text-xxs mb-2">{item.percentage}%</div>

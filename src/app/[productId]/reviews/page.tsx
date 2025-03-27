@@ -1,6 +1,8 @@
-import OverallReviews from "@/_containers/review-page/OverallReview";
+import SummaryReviewLoading from "@/_components/loadings/SummaryReviewLoading";
 import ReviewSection from "@/_containers/review-page/ReviewSection";
 import { fetchReviewProduct } from "@/services/api";
+import SummaryReview from "@/_containers/review-page/SummaryReview";
+import { Suspense } from "react";
 
 export default async function ReviewsPage({
   params,
@@ -12,7 +14,12 @@ export default async function ReviewsPage({
 
   return (
     <main className="min-h-screen pb-5">
-      <OverallReviews />
+      <Suspense fallback={<SummaryReviewLoading />}>
+        <SummaryReview
+          average_rating={review.average_rating}
+          fit_scale={review.fit_scale}
+        />
+      </Suspense>
       <ReviewSection productId={productId} reviews={review.reviews} />
     </main>
   );

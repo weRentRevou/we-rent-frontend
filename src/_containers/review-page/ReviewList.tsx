@@ -20,7 +20,7 @@ export default function ReviewList({ reviews }: { reviews: Review[] }) {
       ) : (
         <>
           <HorizontalDivider className="my-5" />
-          <p className="text-center px-5">This product has not been reviewed</p>
+          <p className="text-center px-5">No Reviews Yet</p>
         </>
       )}
     </div>
