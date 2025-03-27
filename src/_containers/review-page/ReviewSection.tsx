@@ -46,8 +46,6 @@ export default function ReviewSection({
   const [isOpen, setOpen] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
 
-  console.log(reviews);
-
   useEffect(() => {
     setTotalReview(filteredReviews.length);
   }, [filteredReviews.length, setTotalReview]);

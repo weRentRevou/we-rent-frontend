@@ -10,7 +10,9 @@ export default function SummaryReview({
   return (
     <section className="px-5 py-4">
       <div className="flex items-center gap-5">
-        <div className="text-xl font-number font-bold">{average_rating}</div>
+        <div className="text-xl font-number font-bold">
+          {average_rating.toFixed(1)}
+        </div>
         <Stars rating={Math.floor(average_rating)} />
       </div>
       <div className="mt-4">

@@ -99,6 +99,10 @@ export default function ReviewItem({
     }
   };
 
+  const formatImage = (image: string) => {
+    return image.replace(/[{}]/g, "");
+  };
+
   return (
     <>
       <div>
@@ -122,7 +126,7 @@ export default function ReviewItem({
               <span className="flex gap-1 text-xxs text-gray uppercase">
                 <span>{user.height} CM</span>
                 <span>{user.weight} KG</span>
-                <span>0 CM</span>
+                <span>{user.body_size} CM</span>
               </span>
             </div>
           </div>
@@ -155,7 +159,7 @@ export default function ReviewItem({
                 <Image
                   width={90}
                   height={90}
-                  src={image}
+                  src={formatImage(image)}
                   alt="Product Image"
                   className="w-full h-full object-cover object-center"
                   priority={reviewIndex < 3}
@@ -165,7 +169,7 @@ export default function ReviewItem({
             <ImageModal
               open={isOpen}
               handleOpen={() => setIsOpen(!isOpen)}
-              image={selectedImage}
+              image={formatImage(selectedImage)}
             />
           </div>
         )}

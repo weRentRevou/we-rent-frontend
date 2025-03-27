@@ -1,17 +1,20 @@
 import Link from "next/link";
 import HorizontalDivider from "../../_components/dividers/HorizontalDivider";
 import Stars from "../../_components/stars/Stars";
+import Image from "next/image";
 
 export default function Details({
   name,
   totalReview,
   size,
   averageRating,
+  designer_photo,
 }: {
   name: string;
   totalReview: number;
   size: string;
   averageRating: number;
+  designer_photo: string;
 }) {
   return (
     <div>
@@ -36,7 +39,20 @@ export default function Details({
         </Link>
       </div>
       <div className="mt-2">
-        <div className="w-full h-16 bg-gray-100 text-light-gray"></div>
+        <div className="w-full h-16 bg-gray text-light-gray relative">
+          <span className="absolute top-1/2 -translate-y-1/2 left-5 text-black text-2xl font-medium">
+            {" "}
+            n artelier
+          </span>
+          <Image
+            src={designer_photo}
+            alt="Designer Photo"
+            width={353}
+            height={62}
+            priority
+            className="w-full h-full object-cover object-[100%_17%]"
+          />
+        </div>
       </div>
       <HorizontalDivider className="mt-6 mb-4" height="h-0.5" />
     </div>

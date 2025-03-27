@@ -10,10 +10,17 @@ import SizeGuide from "@/_containers/detail-page/SizeGuide";
 import { fetchProductById, fetchReviewProduct } from "@/services/api";
 import { Suspense } from "react";
 
-export default async function ProductDetailPage({ params }: { params: Promise<{ productId: string }> }) {
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ productId: string }>;
+}) {
   const productId = Number((await params).productId);
 
-  const [product, review] = await Promise.all([fetchProductById(productId), fetchReviewProduct(productId)]);
+  const [product, review] = await Promise.all([
+    fetchProductById(productId),
+    fetchReviewProduct(productId),
+  ]);
 
   return (
     <main className="min-h-screen pb-32 relative">
@@ -22,7 +29,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       <div className="px-5 pt-4.5">
         <section>
           <Suspense fallback={<DetailsSkeleton />}>
-            <Details name={product.name} totalReview={review.reviews.length} averageRating={review.average_rating} size={product.size} />
+            <Details
+              name={product.name}
+              totalReview={review.reviews.length}
+              averageRating={review.average_rating}
+              size={product.size}
+              designer_photo={product.designer_photo}
+            />
           </Suspense>
         </section>
         <section>

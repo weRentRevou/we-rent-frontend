@@ -4,6 +4,7 @@ export interface User {
   height: number;
   weight: number;
   profile_image: string;
+  body_size: string;
 }
 
 export interface Review {

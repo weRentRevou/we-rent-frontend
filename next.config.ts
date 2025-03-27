@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.cdnensemble.xyz",
       },
+      {
+        protocol: "https",
+        hostname: "img.freepik.com",
+      },
     ],
   },
 };
