@@ -43,3 +43,36 @@ export const fetchReviewReply = async (review_id: number) => {
     throw Error;
   }
 };
+
+export const fetchFilteredReviews = async ({
+  productId,
+  rating,
+  hasPhoto,
+  sortBy,
+}: {
+  productId: number;
+  rating?: number;
+  hasPhoto?: boolean;
+  sortBy?: string;
+}) => {
+  if (!productId) {
+    console.error("Error: productId is required");
+    return [];
+  }
+
+  try {
+    const params = new URLSearchParams();
+    if (rating) params.append("rating", rating.toString());
+    if (hasPhoto) params.append("has_photo", "true");
+    if (sortBy) params.append("sort_by", sortBy);
+    
+    const { data } = await axiosInstance.get(
+      `/product-review/${productId}?${params.toString()}`
+    );
+
+    return data.reviews;
+  } catch (error) {
+    console.error("Error fetching filtered reviews:", error);
+    return [];
+  }
+};
