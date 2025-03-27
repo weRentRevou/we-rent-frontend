@@ -24,7 +24,9 @@ export default function SizeGuide({ productData }: { productData: Product }) {
             </thead>
             <tbody>
               <tr className="text-xs font-light">
-                <td className="p-2 text-center">{productData.size}</td>
+                <td className="p-2 text-center uppercase">
+                  {productData.size}
+                </td>
                 <td className="p-2 text-center">{productData.bust} cm</td>
                 <td className="p-2 text-center">{productData.length} cm</td>
               </tr>
