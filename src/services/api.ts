@@ -24,7 +24,7 @@ export const fetchReviewProduct = async (id: number) => {
 
 export const likeReview = async (
   review_id: number,
-  body: { user_id: number; is_liked: boolean; comment_text: string }
+  body: { user_id: number; is_liked: string; comment_text: string }
 ) => {
   try {
     await axiosInstance.post(`/review-reply/${review_id}`, body);
@@ -65,7 +65,7 @@ export const fetchFilteredReviews = async ({
     if (rating) params.append("rating", rating.toString());
     if (hasPhoto) params.append("has_photo", "true");
     if (sortBy) params.append("sort_by", sortBy);
-    
+
     const { data } = await axiosInstance.get(
       `/product-review/${productId}?${params.toString()}`
     );

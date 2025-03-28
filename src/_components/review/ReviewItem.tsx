@@ -64,9 +64,9 @@ export default function ReviewItem({
     const getReviewReplies = async (review_id: number) => {
       try {
         const replies = await fetchReviewReply(review_id);
-
         const hasLiked = replies.some(
-          (reply: ReviewReply) => reply.user.id === user_id && reply.is_liked
+          (reply: ReviewReply) =>
+            reply.user.id === user_id && reply.is_liked === true
         );
         setLiked(hasLiked);
       } catch (error) {
@@ -87,7 +87,7 @@ export default function ReviewItem({
 
       await likeReview(id, {
         user_id,
-        is_liked: !isLiked,
+        is_liked: isLiked ? "True" : "False",
         comment_text: review_text,
       });
     } catch (error) {
